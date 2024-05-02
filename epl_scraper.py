@@ -8,7 +8,7 @@ tree = html.fromstring(page.content)
 
 linkLocation = tree.cssselect('.club-card')
 teamLinks = []
-
+# for each club find team links
 for x in range(0, 20):
     # ...Find the page the link is going to...
     temp = linkLocation[x].attrib['href']
@@ -25,7 +25,7 @@ for x in range(0, 20):
 playerLink1 = []
 playerLink2 = []
 
-# For each team link page...
+# For each team link page... get player link
 for y in range(len(teamLinks)):
 
     # ...Download the team page and process the html code...
@@ -45,8 +45,8 @@ for y in range(len(teamLinks)):
     break
 
 print(playerLink2)
+# Get all player stats using player links
 url = playerLink2[0]
-
 req = requests.get(url).text
 soup = BeautifulSoup(req, 'lxml')
 
@@ -58,7 +58,6 @@ for player in players:
     for stat in stats:
         data_stat = stat['data-stat']
         value = stat.get_text().strip()
-        print(f"Data-stat: {data_stat}, Value: {value}")
+        print(f"{data_stat}: {value}")
     break
-
-#print(players)
+    
